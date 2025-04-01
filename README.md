@@ -1,68 +1,57 @@
 # Laravel application for sending requests to the external API
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Project Overview:
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Technologies Used
+Frontend: JavaScript, CSS, Tailwind.
+Backend: PHP, Laravel, Blade.
+Database: MySQL.
+Authentication: no.
+Data format: JSON.
+Deployment: GitHub.
 
-## About Laravel
+## Base URL
+http://localhost:8000
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
+- Send http requests to the external Rick and Morty API using Laravel http::Client
+- Display a list of characters from the Rick and Morty API.
+- Display a list of episodes from the Rick and Morty API.
+- Display a list of locations from the Rick and Morty API.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# Usage
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Installation
+### Prereqisites
+- PHP and composer installed
+### Clone the repository
+```
+$ git clone https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI.git
+```
+### Install dependencies
+```
+$ composer install
+```
 
-## Learning Laravel
+## Dependencies:
+- TailwindCSS framework for rapidly building custom designs.
+- Axios library to make HTTP requests from the browser.
+- FakerPHP library that generates fake data for testing purposes.
+- Mockery library for creating mock objects in unit tests in the PHP application.
+- Nunomaduro for creating various PHP packages and tools. 
+- PHPUnit - unit testing framework for PHP.
+- Maatwebsite\Excel package for export Excel files in Laravel applications.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Common Http status codes
+|Http code|body                 |Description                                |
+|---------|---------------------|-------------------------------------------|
+|200      |OK                   |Successful request                         |
+|201      |Created              |Resource created                           |
+|204      |OK                   |Delete refresh token                       |
+|400      |Bad Request          |Missing a reqired parameter or the server could not understand the request|
+|401      |Unauthorized         |Required user authentication               |
+|403      |Forbidden            |The server understood the request but refuzes to authorized it|
+|404      |Not Found            |The requested resource could not be found  |
+|405      |Method Not Allowed   |The method used in the request is not supported for the target resource, such as attempting to use a POST method when only GET requests are allowed.  |
+|422      |empty request        |Parameter is missing.                      |
+|500      |Internal Server Error|An unexpected condition was encoured. The server was unable to fulfil the request|
