@@ -8,4 +8,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('characters', CharactersController::class);
-Route::get( '/rickmortyapi', [RickMortyController::class, 'index']);
+Route::get( '/rickmortyapi/{id}', [RickMortyController::class, 'index']);
