@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('status');
             $table->string('locationName');
             $table->string('locationUrl');
-            $table->string('status');
             $table->string('episode');
             $table->timestamps();
         });
