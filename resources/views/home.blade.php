@@ -20,12 +20,22 @@
 </head>
 
 <body>
-    <form action="{{route('episodes.store')}}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <button type="submit" class="btn btn-primary">save episodes to the Episodes table</button>
-        </div>
-    </form>
+    @php
+        $characters = DB::table('characters')->get();
+    @endphp
+
+    @if (count($characters))
+        @foreach($characters as $character)
+            <p># {{ $character->episode_id }} - {{ $episode->name }}</p>
+        @endforeach
+    @else
+        <form action="{{route('rickmortyapi.store')}}" method="GET">
+            @csrf
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary" disabled>Получить данные</button>
+            </div>
+        </form>
+    @endif
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
