@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('locations', function (Blueprint $table) {
-            $table->integer('location_id')->after('id')->nullable();
+            $table->integer('location_id')->after('id')->nullable(false);
+            $table->index('location_id');
         });
     }
 
