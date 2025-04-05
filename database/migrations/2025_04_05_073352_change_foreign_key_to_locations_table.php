@@ -22,7 +22,6 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('characters', function (Blueprint $table) {
-            $table->unsignedBigInteger('location_id')->change();
             $table->foreign('location_id')->references('id')->on('locations');
         });
     }
