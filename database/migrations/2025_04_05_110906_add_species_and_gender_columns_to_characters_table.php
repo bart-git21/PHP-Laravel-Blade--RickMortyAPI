@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('characters', function (Blueprint $table) {
-            $table->string('species');
-            $table->string('gender');
+            $table->string('species')->after('status');
+            $table->string('gender')->after('species');
         });
     }
 
