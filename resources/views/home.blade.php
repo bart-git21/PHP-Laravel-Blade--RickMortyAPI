@@ -25,6 +25,7 @@
     @endphp
 
     @if (count($characters))
+        <h1>Characters</h1>
         <table class="table table-striped table-hover table-bordered border-primary">
             <tr>
                 <th>id</th>
