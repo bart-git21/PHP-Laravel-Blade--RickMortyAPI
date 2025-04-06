@@ -17,6 +17,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
+
+    <style>
+        .w-90 {
+            width: 90px;
+        }
+            .card:hover {
+                background-color: lightblue;
+            }
+    </style>
 </head>
 
 <body>
@@ -38,8 +47,15 @@
                 @if ($key < 10 && $key >= 0)
                     <tr>
                         <td>{{ $single->character_id }}</td>
-                        <td><a href="https://rickandmortyapi.com/api/episode/{{ $single->character_id }}">{{ $single->name }}<img
-                                    src="{{ $single->img_href }}" alt=""></a>
+                        <td class="p-0 w-90">
+                            <a class="text-decoration-none" href="https://rickandmortyapi.com/api/episode/{{ $single->character_id }}">
+                                <div class="card text-center" style="width: 10rem;">
+                                    <img class="card-img-top" src="{{ $single->img_href }}" alt="">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $single->name }}</h5>
+                                    </div>
+                                </div>
+                            </a>
                         </td>
                         <td>{{ $single->status }}</td>
                         <td>{{ $single->location_id }}</td>
@@ -52,7 +68,7 @@
         <form action="{{route('rickmortyapi.store')}}" method="GET">
             @csrf
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Получить данные</button>
+                <button type="submit" class="btn btn-primary" disabled>Получить данные</button>
             </div>
         </form>
     @endif
