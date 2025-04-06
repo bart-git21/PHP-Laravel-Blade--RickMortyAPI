@@ -42,6 +42,7 @@
     @endphp
 
     <div class="container">
+        <h1 class="text-center">Characters</h1>
         <div class="row align-items-start">
             <div class="col-3">
                 <form class="" action="/" method="post">
@@ -70,7 +71,6 @@
             </div>
             <div class="col-9">
                 @if (DB::table('character_test')->count() > 0)
-                    <h1>Characters</h1>
                     @if ($name)
                         <p>name = {{ $name }}</p>
                     @endif
