@@ -11,6 +11,9 @@ class InsertLocationsJob implements ShouldQueue
 {
     use Queueable;
 
+    public $tries = 3;
+    public $timeout = 120;
+
     /**
      * Create a new job instance.
      */
