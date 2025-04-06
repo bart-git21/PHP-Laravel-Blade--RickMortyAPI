@@ -21,23 +21,28 @@
 
 <body>
     @php
-        $episodes = DB::table('episode_test')->get();
+        $characters = DB::table('character_test')->get();
     @endphp
 
-    @if (count($episodes))
+    @if (count($characters))
         <table class="table table-striped table-hover table-bordered border-primary">
             <tr>
-                <th>Episode id</th>
-                <th>Episode name</th>
-                <th>Characters list</th>
+                <th>id</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Location</th>
+                <th>Episodes</th>
             </tr>
-            @foreach($episodes as $key => $single)
+            @foreach($characters as $key => $single)
                 @if ($key < 10 && $key >= 0)
                     <tr>
-                        <td>{{ $single->episode_id }}</td>
-                        <td><a href="https://rickandmortyapi.com/api/episode/{{ $single->episode_id }}">{{ $single->name }}</a>
+                        <td>{{ $single->character_id }}</td>
+                        <td><a href="https://rickandmortyapi.com/api/episode/{{ $single->character_id }}">{{ $single->name }}<img
+                                    src="{{ $single->img_href }}" alt=""></a>
                         </td>
-                        <td>{{ $single->characters }}</td>
+                        <td>{{ $single->status }}</td>
+                        <td>{{ $single->location_id }}</td>
+                        <td>{{ $single->episodes_id }}</td>
                     </tr>
                 @endif
             @endforeach
