@@ -21,18 +21,20 @@
 
 <body>
     @php
-        $characters = DB::table('characters')->get();
+        $locations = DB::table('location_test')->get();
     @endphp
 
-    @if (count($characters))
-        @foreach($characters as $character)
-            <p># {{ $character->episode_id }} - {{ $episode->name }}</p>
+    @if (count($locations))
+        @foreach($locations as $key => $single)
+            @if ($key < 10 && $key >= 0)
+                <p># {{ $single->location_id }} - {{ $single->location_name }} - {{ $single->residents }}</p>
+            @endif
         @endforeach
     @else
         <form action="{{route('rickmortyapi.store')}}" method="GET">
             @csrf
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary" disabled>Получить данные</button>
+                <button type="submit" class="btn btn-primary">Получить данные</button>
             </div>
         </form>
     @endif
