@@ -27,20 +27,20 @@ class InsertLocationsJob implements ShouldQueue
      */
     public function handle(): void
     {
-        // Http:get(API)
         $response = Http::withOptions(['verify' => false])->get("https://rickandmortyapi.com/api/location/");
         $json = $response->json();
         $results = $json['results'];
+
         foreach ($results as $result) {
-            $result['residents'] = str_replace('https://rickandmortyapi.com/api/location/', '', $result['residents']);
+            $result['residents'] = str_replace('https://rickandmortyapi.com/api/character/', '', $result['residents']);
             foreach ($result['residents'] as $key => $resident) {
                 $result['residents'][$key] = intval($resident);
             }
             $locations = new Locations();
             $locations->location_id = $result['id'];
             $locations->location_name = $result['name'];
-            $locations->residents = $result['url'];
-            $locations->location_url = $result['residents'];
+            $locations->residents = $result['residents'];
+            $locations->location_url = $result['url'];
             $locations->save();
         }
     }
