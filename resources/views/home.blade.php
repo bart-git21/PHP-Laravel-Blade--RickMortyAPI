@@ -25,7 +25,7 @@
     @endphp
 
     @if (count($episodes))
-        <table>
+        <table class="table table-striped table-hover table-bordered border-primary">
             <tr>
                 <th>Episode id</th>
                 <th>Episode name</th>
