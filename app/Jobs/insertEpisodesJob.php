@@ -11,12 +11,16 @@ class insertEpisodesJob implements ShouldQueue
 {
     use Queueable;
 
+    public $tries = 3;
+    public $timeout = 120;
+    protected $url;
+
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public function __construct($url)
     {
-        //
+        $this->url = $url;
     }
 
     /**
@@ -24,21 +28,30 @@ class insertEpisodesJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $response = Http::withOptions(['verify' => false])->get("https://rickandmortyapi.com/api/episode/");
-        $json = $response->json();
-        $results = $json['results'];
-        foreach ($results as $result) {
-            $result['characters'] = str_replace('https://rickandmortyapi.com/api/character/', '', $result['characters']);
-            foreach ($result['characters'] as $key => $character) {
-                $result['characters'][$key] = intval($character);
+        function getEpisodes($url)
+        {
+            $response = Http::withOptions(['verify' => false])->get($url);
+            $json = $response->json();
+            $results = $json['results'];
+            foreach ($results as $result) {
+                $result['characters'] = str_replace('https://rickandmortyapi.com/api/character/', '', $result['characters']);
+                foreach ($result['characters'] as $key => $character) {
+                    $result['characters'][$key] = intval($character);
+                }
+                $episodes = new Episodes();
+                $episodes->episode_id = $result['id'];
+                $episodes->name = $result['name'];
+                $episodes->url = $result['url'];
+                $episodes->air_date = $result['air_date'];
+                $episodes->characters = $result['characters'];
+                $episodes->save();
             }
-            $episodes = new Episodes();
-            $episodes->episode_id = $result['id'];
-            $episodes->name = $result['name'];
-            $episodes->url = $result['url'];
-            $episodes->air_date = $result['air_date'];
-            $episodes->characters = $result['characters'];
-            $episodes->save();
+
+            $nextPage = $json['info']['next'];
+            if ($nextPage) {
+                getEpisodes($nextPage);
+            }
         }
+        getEpisodes($this->url);
     }
 }
