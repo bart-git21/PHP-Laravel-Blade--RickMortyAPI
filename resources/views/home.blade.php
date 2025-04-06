@@ -22,9 +22,10 @@
         .w-90 {
             width: 90px;
         }
-            .card:hover {
-                background-color: lightblue;
-            }
+
+        .card:hover {
+            background-color: lightblue;
+        }
     </style>
 </head>
 
@@ -33,45 +34,49 @@
         $characters = DB::table('character_test')->get();
     @endphp
 
-    @if (count($characters))
-        <h1>Characters</h1>
-        <table class="table table-striped table-hover table-bordered border-primary">
-            <tr>
-                <th>id</th>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Location</th>
-                <th>Episodes</th>
-            </tr>
-            @foreach($characters as $key => $single)
-                @if ($key < 10 && $key >= 0)
-                    <tr>
-                        <td>{{ $single->character_id }}</td>
-                        <td class="p-0 w-90">
-                            <a class="text-decoration-none" href="https://rickandmortyapi.com/api/episode/{{ $single->character_id }}">
-                                <div class="card text-center" style="width: 10rem;">
-                                    <img class="card-img-top" src="{{ $single->img_href }}" alt="">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ $single->name }}</h5>
+    <div class="container">
+
+        @if (count($characters))
+            <h1>Characters</h1>
+            <table class="table table-dark table-striped table-hover table-bordered border-primary">
+                <thead class="table-dark text-center">
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Location</th>
+                    <th>Episodes</th>
+                </thead>
+                @foreach($characters as $key => $single)
+                    @if ($key < 10 && $key >= 0)
+                        <tr>
+                            <td>{{ $single->character_id }}</td>
+                            <td class="p-0 w-90">
+                                <a class="text-decoration-none"
+                                    href="https://rickandmortyapi.com/api/episode/{{ $single->character_id }}">
+                                    <div class="card text-center" style="width: 10rem;">
+                                        <img class="card-img-top" src="{{ $single->img_href }}" alt="">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $single->name }}</h5>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </td>
-                        <td>{{ $single->status }}</td>
-                        <td>{{ $single->location_id }}</td>
-                        <td>{{ $single->episodes_id }}</td>
-                    </tr>
-                @endif
-            @endforeach
-        </table>
-    @else
-        <form action="{{route('rickmortyapi.store')}}" method="GET">
-            @csrf
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary" disabled>Получить данные</button>
-            </div>
-        </form>
-    @endif
+                                </a>
+                            </td>
+                            <td>{{ $single->status }}</td>
+                            <td>{{ $single->location_id }}</td>
+                            <td>{{ $single->episodes_id }}</td>
+                        </tr>
+                    @endif
+                @endforeach
+            </table>
+        @else
+            <form action="{{route('rickmortyapi.store')}}" method="GET">
+                @csrf
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Получить данные</button>
+                </div>
+            </form>
+        @endif
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
