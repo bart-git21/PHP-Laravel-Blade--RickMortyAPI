@@ -16,10 +16,10 @@
         $characters = DB::table('character_test')
             ->where('name', 'LIKE', "%$name%")
             ->where('status', 'LIKE', "%$options%")
-            ->where('location_name', 'LIKE', "%$location%")
             ->whereBetween('character_test.character_id', [0, 33])
             ->select('character_test.*', 'location_test.location_name')
             ->leftJoin('location_test', 'character_test.location_id', '=', 'location_test.location_id')
+            ->where('location_name', 'LIKE', "%$location%")
             ->get();
     @endphp
 
@@ -62,6 +62,12 @@
                     @if ($options)
                         <p>status = {{ $options }}</p>
                     @endif
+
+                    <form class="mb-3" action="/export" method="post">
+                        @csrf
+                        <input type="hidden" name="table" value="{{ $characters }}">
+                        <button type="submit" class="btn btn btn-outline-primary">Export to Excel</button>
+                    </form>
 
                     <table class="table table-dark table-striped table-hover table-bordered border-primary">
                         <thead class="table-dark text-center">
