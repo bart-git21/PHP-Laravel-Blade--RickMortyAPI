@@ -21,15 +21,27 @@
 
 <body>
     @php
-        $locations = DB::table('location_test')->get();
+        $episodes = DB::table('episode_test')->get();
     @endphp
 
-    @if (count($locations))
-        @foreach($locations as $key => $single)
-            @if ($key < 10 && $key >= 0)
-                <p># {{ $single->location_id }} - {{ $single->location_name }} - {{ $single->residents }}</p>
-            @endif
-        @endforeach
+    @if (count($episodes))
+        <table>
+            <tr>
+                <th>Episode id</th>
+                <th>Episode name</th>
+                <th>Characters list</th>
+            </tr>
+            @foreach($episodes as $key => $single)
+                @if ($key < 10 && $key >= 0)
+                    <tr>
+                        <td>{{ $single->episode_id }}</td>
+                        <td><a href="https://rickandmortyapi.com/api/episode/{{ $single->episode_id }}">{{ $single->name }}</a>
+                        </td>
+                        <td>{{ $single->characters }}</td>
+                    </tr>
+                @endif
+            @endforeach
+        </table>
     @else
         <form action="{{route('rickmortyapi.store')}}" method="GET">
             @csrf
