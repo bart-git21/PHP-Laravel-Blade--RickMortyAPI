@@ -14,7 +14,8 @@ class RickMortyController extends Controller
     }
     public function store()
     {
-        InsertLocationsJob::dispatch();
+        $locationUrl = 'https://rickandmortyapi.com/api/location/';
+        InsertLocationsJob::dispatch($locationUrl);
         InsertEpisodesJob::dispatch();
         return redirect()->route('root');
     }
