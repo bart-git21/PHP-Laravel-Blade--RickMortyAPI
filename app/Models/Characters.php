@@ -8,5 +8,9 @@ class Characters extends Model
 {
     protected $table = 'characters';
 
-    protected $fillable = ['name', 'status', 'species', 'gender', 'location_id', 'episodes_id' => 'array', 'img_href'];
+    protected $fillable = ['character_id', 'name', 'status', 'species', 'gender', 'location_id', 'episodes_id', 'img_href'];
+
+    protected $casts = [
+        'episodes_id' => 'array'
+    ];
 }
