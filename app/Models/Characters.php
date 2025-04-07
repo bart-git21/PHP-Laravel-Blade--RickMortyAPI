@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Characters extends Model
 {
-    protected $table = 'character_test';
+    protected $table = 'characters';
 
     protected $fillable = ['character_id', 'name', 'status', 'species', 'gender', 'location_id', 'episodes_id', 'img_href'];
 

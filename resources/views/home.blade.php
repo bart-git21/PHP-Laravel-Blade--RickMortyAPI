@@ -43,7 +43,7 @@
 
     <div class="container">
         <h1 class="text-center">Rick & Morty Characters</h1>
-        @if (DB::table('character_test')->count() > 0)
+        @if (DB::table('characters')->count() > 0)
             <div class="row align-items-start">
                 <div class="col-4">
                     <form class="form-content" action="/" method="post">
