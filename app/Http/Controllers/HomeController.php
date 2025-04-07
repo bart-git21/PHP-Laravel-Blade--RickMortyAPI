@@ -8,13 +8,9 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->name || $request->options || $request->location) {
-            $validatedData = $request->validate([
-                'name' => 'string|max:255',
-                'location' => 'string|max:255',
-            ]);
-            return view('home', ['name' => $validatedData['name'], 'options' => $request->options, 'location' => $validatedData['location']]);
+        if ($request->name || $request->episode || $request->options || $request->location) {
+            return view('home', ['name' => $request->name, 'episode' => $request->episode, 'options' => $request->options, 'location' => $request->location]);
         }
-        return view('home', ['name' => "", 'options' => "", 'location' => ""]);
+        return view('home', ['name' => "", 'episode' => "", 'options' => "", 'location' => ""]);
     }
 }
