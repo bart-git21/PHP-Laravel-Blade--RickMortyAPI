@@ -38,12 +38,15 @@
             ->leftJoin('location_test', 'character_test.location_id', '=', 'location_test.location_id')
             ->where('location_name', 'LIKE', "%$location%")
             ->whereBetween('character_test.character_id', [1, 20])
+            ->when($episode, function ($query) use ($episode) {
+                return $query->whereRaw('JSON_CONTAINS(episodes_id, CAST(? AS JSON))', [$episode]);
+            })
             ->get();
     @endphp
 
     <div class="container">
         <h1 class="text-center">Rick & Morty Characters</h1>
-        @if (DB::table('characters')->count() > 0)
+        @if (DB::table('character_test')->count() > 0)
             <div class="row align-items-start">
                 <div class="col-4">
                     <form class="form-content" action="/" method="post">
@@ -55,7 +58,12 @@
                         </div>
 
                         <div class="">
-                            <label for="location" class="form-label">Location :</label>
+                            <label for="episode" class="form-label">Episode id :</label>
+                            <input type="numer" min="1" max="51" name="episode" placeholder="51">
+                        </div>
+
+                        <div class="">
+                            <label for="location" class="form-label">Location:</label>
                             <input type="text" name="location" placeholder="Earth">
                         </div>
 
@@ -82,6 +90,9 @@
                 <div class="col-8">
                     @if ($name)
                         <p>You chosen {{ $name }} name.</p>
+                    @endif
+                    @if ($episode)
+                        <p>You chosen {{ $episode }} episode.</p>
                     @endif
                     @if ($location)
                         <p>You chosen {{ $location }} location.</p>
