@@ -4,6 +4,24 @@
 
 @section('content')
     <style>
+        body {
+            /* background-color: chocolate; */
+        }
+
+        .form-content {
+            background-color: #2c3034;
+            color: #fff;
+            padding: 40px;
+            border: 3px solid #fff;
+            border-radius: 10px;
+
+            & h3 {
+                font-size: 28px;
+                font-weight: 600;
+                margin-bottom: 25px;
+            }
+        }
+
         .w-90 {
             width: 90px;
         }
@@ -16,7 +34,6 @@
         $characters = DB::table('character_test')
             ->where('name', 'LIKE', "%$name%")
             ->where('status', 'LIKE', "%$options%")
-            ->whereBetween('character_test.character_id', [0, 33])
             ->select('character_test.*', 'location_test.location_name')
             ->leftJoin('location_test', 'character_test.location_id', '=', 'location_test.location_id')
             ->where('location_name', 'LIKE', "%$location%")
@@ -24,10 +41,11 @@
     @endphp
 
     <div class="container">
-        <h1 class="text-center">Characters</h1>
+        <h1 class="text-center">Rick & Morty Characters</h1>
         <div class="row align-items-start">
-            <div class="col-3">
-                <form class="" action="/" method="post">
+            <div class="col-4">
+                <form class="form-content" action="/" method="post">
+                    <h3 class="text-center">Custom characters</h3>
                     @csrf
                     <div class="">
                         <label for="name" class="form-label">Name :</label>
@@ -39,7 +57,7 @@
                         <input type="text" name="location" placeholder="Earth">
                     </div>
 
-                    <div class="row">
+                    <div class="">
                         <select class="form-select" name="options" aria-label="Default select example">
                             <option selected disabled>Status :</option>
                             <option value="alive">alive</option>
@@ -50,24 +68,26 @@
 
                     <button type="submit" class="btn btn-primary">Filter</button>
                 </form>
+
+                <form class="mb-3" action="/export" method="post">
+                    @csrf
+                    <input type="hidden" name="table" value="{{ $characters }}">
+
+                    <button type="submit" class="btn btn-outline-success"><img
+                            src="{{ asset('images/icons8-excel-48.png') }}" alt="">Export to Excel</button>
+                </form>
             </div>
-            <div class="col-9">
+            <div class="col-8">
                 @if (DB::table('character_test')->count() > 0)
                     @if ($name)
-                        <p>name = {{ $name }}</p>
+                        <p>You chosen {{ $name }} name.</p>
                     @endif
                     @if ($location)
-                        <p>location = {{ $location }}</p>
+                        <p>You chosen {{ $location }} location.</p>
                     @endif
                     @if ($options)
-                        <p>status = {{ $options }}</p>
+                        <p>You chosen {{ $options }} status.</p>
                     @endif
-
-                    <form class="mb-3" action="/export" method="post">
-                        @csrf
-                        <input type="hidden" name="table" value="{{ $characters }}">
-                        <button type="submit" class="btn btn btn-outline-primary">Export to Excel</button>
-                    </form>
 
                     <table class="table table-dark table-striped table-hover table-bordered border-primary">
                         <thead class="table-dark text-center">
@@ -108,4 +128,6 @@
             </div>
         </div>
     </div>
+
+    <footer>icons by <a target="_blank" rel="noopener noreferrer" href="https://icons8.com">Icons8</a></footer>
 @endsection
