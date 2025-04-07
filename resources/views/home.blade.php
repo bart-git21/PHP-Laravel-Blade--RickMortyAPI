@@ -46,7 +46,7 @@
 
     <div class="container">
         <h1 class="text-center">Rick & Morty Characters</h1>
-        @if (DB::table('character_test')->count() > 0)
+        @if (DB::table('characters')->count() > 0)
             <div class="row align-items-start">
                 <div class="col-4">
                     <form class="form-content" action="/" method="post">
@@ -59,7 +59,7 @@
 
                         <div class="">
                             <label for="episode" class="form-label">Episode id :</label>
-                            <input type="numer" min="1" max="51" name="episode" placeholder="51">
+                            <input type="number" min="1" max="51" name="episode" placeholder="51">
                         </div>
 
                         <div class="">
