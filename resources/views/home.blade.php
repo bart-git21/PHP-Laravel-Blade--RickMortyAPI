@@ -31,13 +31,13 @@
         }
     </style>
     @php
-        $characters = DB::table('character_test')
+        $characters = DB::table('characters')
             ->where('name', 'LIKE', "%$name%")
             ->where('status', 'LIKE', "%$options%")
-            ->select('character_test.*', 'location_test.location_name')
-            ->leftJoin('location_test', 'character_test.location_id', '=', 'location_test.location_id')
+            ->select('characters.*', 'location_test.location_name')
+            ->leftJoin('location_test', 'characters.location_id', '=', 'location_test.location_id')
             ->where('location_name', 'LIKE', "%$location%")
-            ->whereBetween('character_test.character_id', [1, 20])
+            ->whereBetween('characters.character_id', [1, 20])
             ->when($episode, function ($query) use ($episode) {
                 return $query->whereRaw('JSON_CONTAINS(episodes_id, CAST(? AS JSON))', [$episode]);
             })
