@@ -28,30 +28,31 @@ class InsertLocationsJob implements ShouldQueue
      */
     public function handle(): void
     {
-        function getLocation($url)
-        {
-            $response = Http::withOptions(['verify' => false])->get($url);
-            $json = $response->json();
-            $results = $json['results'];
+        $this->getLocations($this->url);
+    }
+    protected function getLocations($url)
+    {
+        $response = Http::withOptions(['verify' => false])->get($url);
+        $json = $response->json();
+        $results = $json['results'];
 
-            foreach ($results as $result) {
-                $result['residents'] = str_replace('https://rickandmortyapi.com/api/character/', '', $result['residents']);
-                foreach ($result['residents'] as $key => $resident) {
-                    $result['residents'][$key] = intval($resident);
-                }
-                $locations = new Locations();
-                $locations->location_id = $result['id'];
-                $locations->location_name = $result['name'];
-                $locations->residents = $result['residents'];
-                $locations->location_url = $result['url'];
-                $locations->save();
+        foreach ($results as $result) {
+            $result['residents'] = str_replace('https://rickandmortyapi.com/api/character/', '', $result['residents']);
+            foreach ($result['residents'] as $key => $resident) {
+                $result['residents'][$key] = intval($resident);
             }
-
-            $nextPage = $json['info']['next'];
-            if ($nextPage) {
-                getLocation($nextPage);
-            }
+            $locations = new Locations();
+            $locations->location_id = $result['id'];
+            $locations->location_name = $result['name'];
+            $locations->residents = $result['residents'];
+            $locations->location_url = $result['url'];
+            $locations->save();
         }
-        getLocation($this->url);
+
+        // loop during get all data from external API
+        $nextPage = $json['info']['next'];
+        if ($nextPage) {
+            $this->getLocations($nextPage);
+        }
     }
 }

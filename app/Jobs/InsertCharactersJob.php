@@ -27,34 +27,36 @@ class InsertCharactersJob implements ShouldQueue
      */
     public function handle(): void
     {
-        function getCharacters($url)
-        {
-            $response = Http::withOptions(['verify' => false])->get($url);
-            $json = $response->json();
-            $results = $json['results'];
-            foreach ($results as $result) {
-                $result['location'] = intval(str_replace('https://rickandmortyapi.com/api/location/', '', $result['location']['url']));
-                $result['episode'] = str_replace('https://rickandmortyapi.com/api/episode/', '', $result['episode']);
-                foreach ($result['episode'] as $key => $episode) {
-                    $result['episode'][$key] = intval($episode);
-                }
-                $characters = new Characters();
-                $characters->character_id = $result['id'];
-                $characters->name = $result['name'];
-                $characters->status = $result['status'];
-                $characters->species = $result['species'];
-                $characters->gender = $result['gender'];
-                $characters->location_id = $result['location'];
-                $characters->episodes_id = $result['episode'];
-                $characters->img_href = $result['image'];
-                $characters->save();
-            }
+        $this->getCharacters($this->url);
+    }
 
-            $nextPage = $json['info']['next'];
-            if ($nextPage) {
-                getCharacters($nextPage);
+    protected function getCharacters(string $url): void
+    {
+        $response = Http::withOptions(['verify' => false])->get($url);
+        $json = $response->json();
+        $results = $json['results'];
+        foreach ($results as $result) {
+            $result['location'] = intval(str_replace('https://rickandmortyapi.com/api/location/', '', $result['location']['url']));
+            $result['episode'] = str_replace('https://rickandmortyapi.com/api/episode/', '', $result['episode']);
+            foreach ($result['episode'] as $key => $episode) {
+                $result['episode'][$key] = intval($episode);
             }
+            $characters = new Characters();
+            $characters->character_id = $result['id'];
+            $characters->name = $result['name'];
+            $characters->status = $result['status'];
+            $characters->species = $result['species'];
+            $characters->gender = $result['gender'];
+            $characters->location_id = $result['location'];
+            $characters->episodes_id = $result['episode'];
+            $characters->img_href = $result['image'];
+            $characters->save();
         }
-        getCharacters($this->url);
+
+        // loop during get all data from external API
+        $nextPage = $json['info']['next'];
+        if ($nextPage) {
+            $this->getCharacters($nextPage);
+        }
     }
 }
