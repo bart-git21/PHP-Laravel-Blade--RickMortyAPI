@@ -13,7 +13,7 @@ class InsertCharactersJob implements ShouldQueue
 {
     use Queueable;
     public $tries = 3;
-    public $timeout = 120;
+    public $timeout = 300;
     protected $job_id;
     protected $url;
 
