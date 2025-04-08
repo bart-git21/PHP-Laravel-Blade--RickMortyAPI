@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
@@ -28,6 +29,15 @@ class InsertLocationsJob implements ShouldQueue
      */
     public function handle(): void
     {
+        // create empty 'unknown' location
+        $locations = new Locations();
+        $locations->location_id = 0;
+        $locations->location_name = 'unknown';
+        $locations->residents = '[]';
+        $locations->location_url = '';
+        $locations->save();
+
+        //get locations from external rickmorty API and insert into database
         $this->getLocations($this->url);
     }
     protected function getLocations($url)
