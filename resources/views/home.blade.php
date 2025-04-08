@@ -32,7 +32,6 @@
     </style>
     @php
         $characters = DB::table('characters')
-            ->whereBetween('character_id', [1, 20])
             ->where('name', 'LIKE', "%$name%")
             ->where('status', 'LIKE', "%$options%")
             ->when($episode, function ($query) use ($episode) {
@@ -77,15 +76,38 @@
                             </select>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <button type="submit" class="btn btn-primary mt-5">Filter</button>
                     </form>
 
-                    <form class="mb-3" action="/export" method="post">
-                        @csrf
-                        <input type="hidden" name="table" value="{{ $characters }}">
-
-                        <button type="submit" class="btn btn-outline-success"><img
+                    <form id="excelForm" class="mb-3" action="" method="">
+                        <button id="exportBtn" type="submit" class="btn btn-outline-success"><img
                                 src="{{ asset('images/icons8-excel-48.png') }}" alt="">Export to Excel</button>
+
+                        <script>
+                            $(document).ready(function () {
+                                $('#exportBtn').on('click', function (event) {
+                                    event.preventDefault();
+                                    const characters = @json($characters);
+                                    $.ajax({
+                                        url: '/export',
+                                        method: "POST",
+                                        data: JSON.stringify({ table: characters }),
+                                        contentType: 'application/json',
+                                        headers: {
+                                            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                                        },
+                                    })
+                                        .done(response => {
+                                            const link = document.createElement('a');
+                                            link.href = 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' + response.fileData;
+                                            link.download = 'filtered_characters.xlsx';
+                                            link.textContent = 'download';
+                                            $("#excelForm").append(link);
+                                        })
+                                        .fail()
+                                })
+                            })
+                        </script>
                     </form>
                 </div>
                 <div class="col-8">
