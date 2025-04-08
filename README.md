@@ -14,6 +14,8 @@ Deployment: GitHub.
 - Send http requests to the external Rick and Morty API using Laravel http::Client
 - First user see one button to get all characters, all locations and all episodes.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/intro.jpg)
+- Click on it to start saving data.
+![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/loading.jpg)
 - Display a list of characters from the Rick and Morty API.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/result.jpg)
 - User can filtered a list of characters.
