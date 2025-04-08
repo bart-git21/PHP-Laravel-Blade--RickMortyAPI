@@ -30,6 +30,7 @@ class InsertLocationsJob implements ShouldQueue
     public function handle(): void
     {
         // clear table
+        DB::table('characters')->delete();
         DB::table('locations')->delete();
 
         // create empty 'unknown' location
