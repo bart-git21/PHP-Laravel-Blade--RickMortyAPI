@@ -34,8 +34,8 @@
         $characters = DB::table('characters')
             ->where('name', 'LIKE', "%$name%")
             ->where('status', 'LIKE', "%$options%")
-            ->select('characters.*', 'location_test.location_name')
-            ->leftJoin('location_test', 'characters.location_id', '=', 'location_test.location_id')
+            ->select('characters.*', 'locations.location_name')
+            ->leftJoin('locations', 'characters.location_id', '=', 'locations.location_id')
             ->where('location_name', 'LIKE', "%$location%")
             ->whereBetween('characters.character_id', [1, 20])
             ->when($episode, function ($query) use ($episode) {
