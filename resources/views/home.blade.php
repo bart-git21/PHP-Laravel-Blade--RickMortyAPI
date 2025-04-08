@@ -45,7 +45,7 @@
     @endphp
 
     <div class="container">
-        <h1 class="text-center">Rick & Morty Characters</h1>
+        <h1 class="text-center mb-5">Rick & Morty Characters</h1>
         @if (DB::table('characters')->count() > 0)
             <div class="row align-items-start">
                 <div class="col-4">
@@ -134,7 +134,7 @@
         @else
             <form action="{{route('rickmortyapi.store')}}" method="GET">
                 @csrf
-                <div class="mb-3">
+                <div class="mb-3 d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary">Получить данные</button>
                 </div>
             </form>
