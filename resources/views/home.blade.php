@@ -4,7 +4,7 @@
 
 @section('content')
     @php
-    $step = 10;
+        $step = 10;
         $characters = DB::table('characters')
             ->where('name', 'LIKE', "%$name%")
             ->where('status', 'LIKE', "%$options%")
@@ -32,8 +32,9 @@
                     @include('partials.resulttable')
                 </div>
             </div>
+            @include('partials.loadingform', ['buttonId'=>'updateJob', 'buttonText'=>'Обновить данные'])
         @else
-            @include('partials.loadingform')
+            @include('partials.loadingform', ['buttonId'=>'dispatchJob', 'buttonText'=>'Получить данные'])
         @endif
     </div>
 @endsection

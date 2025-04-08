@@ -1,14 +1,14 @@
 <form>
     <div class="mb-3 form-check d-flex justify-content-center">
-        <button id="dispatchJobsBtn" type="submit" class="btn btn-primary">Получить данные</button>
+        <button id="{{ $buttonId }}" type="submit" class="btn btn-primary">{{$buttonText}}</button>
     </div>
 </form>
 
 <script>
     $(document).ready(function () {
-        $("#dispatchJobsBtn").on('click', function (event) {
+        $("#{{ $buttonId }}").on('click', function (event) {
             event.preventDefault();
-            $("#dispatchJobsBtn").text("Данные загружаются...").prop('disabled', true);
+            $("#{{ $buttonId }}").text("Данные загружаются...").prop('disabled', true);
             alert("from script");
             $.ajax({ url: '/rickmortyapi' })
                 .done((response) => {
@@ -24,7 +24,7 @@
                                 }
                             })
                             .fail(() => { })
-                    }, 2000)
+                    }, 3000)
                 })
                 .fail(() => { })
         })
