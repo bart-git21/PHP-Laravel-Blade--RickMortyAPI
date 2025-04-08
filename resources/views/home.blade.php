@@ -4,6 +4,7 @@
 
 @section('content')
     @php
+    $step = 10;
         $characters = DB::table('characters')
             ->where('name', 'LIKE', "%$name%")
             ->where('status', 'LIKE', "%$options%")
@@ -14,6 +15,8 @@
             ->leftJoin('locations', 'characters.location_id', '=', 'locations.location_id')
             ->where('location_name', 'LIKE', "%$location%")
             ->orderBy('character_id', 'asc')
+            ->offset($offset * $step)
+            ->limit(10)
             ->get();
     @endphp
 
