@@ -16,9 +16,9 @@ Deployment: GitHub.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/intro.jpg)
 - Click on it to start saving data.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/loading.jpg)
-- Display a list of characters from the Rick and Morty API.
+- Display the Rick and Morty characters list.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/result.jpg)
-- User can filtered a list of characters.
+- User can filter the characters.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/filter.jpg)
 - User can download excel file with filtered data.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/excel.jpg)
