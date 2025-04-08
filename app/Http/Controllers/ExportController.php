@@ -19,25 +19,31 @@ class ExportController extends Controller
         $sheet->setCellValue('D1', 'Location');
 
         // Fetch data
-        $request_table = json_decode($request->table);
+        $data = $request->json()->all();
+        $request_table = $data['table'] ?? null;
 
         // fill the excel sheet
         $row = 2; // Start from the second row
         foreach ($request_table as $request_row) {
-            $sheet->setCellValue('A' . $row, $request_row->character_id);
-            $sheet->setCellValue('B' . $row, $request_row->name);
-            $sheet->setCellValue('C' . $row, $request_row->status);
-            $sheet->setCellValue('D' . $row, $request_row->location_name);
+            $sheet->setCellValue('A' . $row, $request_row["character_id"]);
+            $sheet->setCellValue('B' . $row, $request_row["name"]);
+            $sheet->setCellValue('C' . $row, $request_row["status"]);
+            $sheet->setCellValue('D' . $row, $request_row["location_name"]);
             $row++;
         }
 
-        // Save the file
+        // Save to a temporary file
+        $tempFile = tempnam(sys_get_temp_dir(), 'export');
         $writer = new Xlsx($spreadsheet);
-        $fileName = 'filtered_characters.xlsx';
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . $fileName . '"');
-        header('Cache-Control: max-age=0');
-        $writer->save('php://output');
-        exit;
+        $writer->save($tempFile);
+
+        // Read the file and encode as base64
+        $fileData = base64_encode(file_get_contents($tempFile));
+        unlink($tempFile); // Delete the temp file
+
+        return response()->json([
+            'success' => true,
+            'fileData' => $fileData
+        ]);
     }
 }
