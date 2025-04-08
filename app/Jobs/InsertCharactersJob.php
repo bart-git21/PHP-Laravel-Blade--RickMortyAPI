@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
@@ -27,6 +28,10 @@ class InsertCharactersJob implements ShouldQueue
      */
     public function handle(): void
     {
+        // clear table
+        DB::table('characters')->delete();
+        
+        //get characters from external rickmorty API and insert into database
         $this->getCharacters($this->url);
     }
 

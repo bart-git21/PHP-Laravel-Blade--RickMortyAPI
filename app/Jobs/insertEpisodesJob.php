@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
@@ -28,6 +29,10 @@ class insertEpisodesJob implements ShouldQueue
      */
     public function handle(): void
     {
+        // clear table
+        DB::table('episodes')->delete();
+        
+        //get episodes from external rickmorty API and insert into database
         $this->getEpisodes($this->url);
     }
 
