@@ -32,15 +32,16 @@
     </style>
     @php
         $characters = DB::table('characters')
+            ->whereBetween('character_id', [1, 20])
             ->where('name', 'LIKE', "%$name%")
             ->where('status', 'LIKE', "%$options%")
-            ->select('characters.*', 'locations.location_name')
-            ->leftJoin('locations', 'characters.location_id', '=', 'locations.location_id')
-            ->where('location_name', 'LIKE', "%$location%")
-            ->whereBetween('characters.character_id', [1, 20])
             ->when($episode, function ($query) use ($episode) {
                 return $query->whereRaw('JSON_CONTAINS(episodes_id, CAST(? AS JSON))', [$episode]);
             })
+            ->select('characters.*', 'locations.location_name')
+            ->leftJoin('locations', 'characters.location_id', '=', 'locations.location_id')
+            ->where('location_name', 'LIKE', "%$location%")
+            ->orderBy('character_id', 'asc')
             ->get();
     @endphp
 
@@ -131,13 +132,40 @@
                     </table>
                 </div>
             </div>
+
         @else
-            <form action="{{route('rickmortyapi.store')}}" method="GET">
-                @csrf
-                <div class="mb-3 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">Получить данные</button>
+            <form>
+                <div class="mb-3 form-check d-flex justify-content-center">
+                    <button id="dispatchJobsBtn" type="submit" class="btn btn-primary">Получить данные</button>
                 </div>
             </form>
+
+            <script>
+                $(document).ready(function () {
+                    $("#dispatchJobsBtn").on('click', function (event) {
+                        event.preventDefault();
+                        $("#dispatchJobsBtn").text("Данные загружаются...").prop('disabled', true);
+                        alert("from script");
+                        $.ajax({ url: '/rickmortyapi' })
+                            .done((response) => {
+                                console.log(response);
+                                const jobId = response.jobId;
+                                const polling = setInterval(() => {
+                                    $.ajax({ url: `/jobstatus/${jobId}`, })
+                                        .done((response) => {
+                                            console.log(response);
+                                            if (response.status === 'completed') {
+                                                clearInterval(polling);
+                                                window.location.href = `/`;
+                                            }
+                                        })
+                                        .fail(() => { })
+                                }, 2000)
+                            })
+                            .fail(() => { })
+                    })
+                });
+            </script>
         @endif
     </div>
 
