@@ -22,6 +22,37 @@
     @endif
 </div>
 
+<div class="w-100 d-flex justify-content-around" id="arrows">
+    @php
+        $left_offset = ($offset - $step) >= 0 ? ($offset - 1) : 0;
+        $right_offset = ($step < count($characters)) ? ($offset + 1) : count($characters);
+    @endphp
+    @if ($offset > 0)
+        <form class="form-content" action="/" method="post">
+            @csrf
+            <input type="hidden" name="name" value="{{ $name }}">
+            <input type="hidden" min="1" max="51" name="episode" value="{{ $episode }}">
+            <input type="hidden" name="location" value="{{ $location }}">
+            <input type="hidden" name="options" value="{{ $options }}">
+            <input type="hidden" name="options" value="{{ $options }}">
+            <input type="hidden" name="offset" value="{{ $left_offset }}">
+            <button type="submit" class="btn btn-primary mb-3">left</button>
+        </form>
+    @endif
+    @if ($step < count($characters))
+        <form class="form-content" action="/" method="post">
+            @csrf
+            <input type="hidden" name="name" value="{{ $name }}">
+            <input type="hidden" min="1" max="51" name="episode" value="{{ $episode }}">
+            <input type="hidden" name="location" value="{{ $location }}">
+            <input type="hidden" name="options" value="{{ $options }}">
+            <input type="hidden" name="options" value="{{ $options }}">
+            <input type="hidden" name="offset" value="{{ $right_offset }}">
+            <button type="submit" class="btn btn-primary mb-3">right</button>
+        </form>
+    @endif
+</div>
+
 <table class="table table-dark table-striped table-hover table-bordered border-primary">
     <thead class="table-dark text-center">
         <th>id</th>
