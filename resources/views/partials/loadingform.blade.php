@@ -9,10 +9,8 @@
         $("#{{ $buttonId }}").on('click', function (event) {
             event.preventDefault();
             $("#{{ $buttonId }}").text("Данные загружаются...").prop('disabled', true);
-            alert("from script");
             $.ajax({ url: '/rickmortyapi' })
                 .done((response) => {
-                    console.log(response);
                     const jobId = response.jobId;
                     const polling = setInterval(() => {
                         $.ajax({ url: `/jobstatus/${jobId}`, })
