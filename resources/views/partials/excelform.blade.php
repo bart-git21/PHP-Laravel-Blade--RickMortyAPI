@@ -1,8 +1,8 @@
 <form id="excelForm" class="mb-3 d-flex flex-column" action="" method="">
-    <button id="exportAllToExcelBtn" type="submit" class="btn btn-outline-success">
+    <button id="exportAllToExcelBtn" type="submit" class="btn btn-outline-success my-2">
         <img src="{{ asset('images/icons8-excel-48.png') }}" alt="">All data export to Excel
     </button>
-    <button id="exportFilteredToExcelBtn" type="submit" class="btn btn-outline-success">
+    <button id="exportFilteredToExcelBtn" type="submit" class="btn btn-outline-success my-2">
         <img src="{{ asset('images/icons8-excel-48.png') }}" alt="">Filtered data export to Excel
     </button>
 
