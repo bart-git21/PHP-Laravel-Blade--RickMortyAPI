@@ -63,11 +63,11 @@
         <th>Location</th>
         <th>Episodes</th>
     </thead>
-    @foreach($characters as $key => $single)
+    @foreach($characters as $single)
         <tr>
             <td>{{ $single->character_id }}</td>
             <td class="p-0 w-90">
-                <a class="text-decoration-none" href="https://rickandmortyapi.com/api/episode/{{ $single->character_id }}">
+                <a class="text-decoration-none" href="https://rickandmortyapi.com/api/character/{{ $single->character_id }}">
                     <div class="card text-center" style="width: 10rem;">
                         <img class="card-img-top" src="{{ $single->img_href }}" alt="">
                         <div class="card-body">
