@@ -31,7 +31,7 @@
             <input type="hidden" name="location" value="{{ $location }}">
             <input type="hidden" name="options" value="{{ $options }}">
             <input type="hidden" name="options" value="{{ $options }}">
-            <input type="hidden" name="offset" value="{{ ($offset - 1) >= 0 ?: 0 }}">
+            <input type="hidden" name="offset" value="{{ $offset - 1 }}">
             <button type="submit" class="btn mb-3">
                 <img width="40" height="40" src="https://img.icons8.com/flat-round/64/long-arrow-left.png"
                     alt="long-arrow-left" />
