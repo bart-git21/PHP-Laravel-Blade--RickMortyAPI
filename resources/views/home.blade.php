@@ -5,6 +5,21 @@
 @section('content')
     @php
         $step = 10;
+        $allCharacters = DB::table('characters')
+            ->select('characters.*', 'locations.location_name')
+            ->leftJoin('locations', 'characters.location_id', '=', 'locations.location_id')
+            ->get();
+        $filteredCharacters = DB::table('characters')
+            ->where('name', 'LIKE', "%$name%")
+            ->where('status', 'LIKE', "%$options%")
+            ->when($episode, function ($query) use ($episode) {
+                return $query->whereRaw('JSON_CONTAINS(episodes_id, CAST(? AS JSON))', [$episode]);
+            })
+            ->select('characters.*', 'locations.location_name')
+            ->leftJoin('locations', 'characters.location_id', '=', 'locations.location_id')
+            ->where('location_name', 'LIKE', "%$location%")
+            ->orderBy('character_id', 'asc')
+            ->get();
         $characters = DB::table('characters')
             ->where('name', 'LIKE', "%$name%")
             ->where('status', 'LIKE', "%$options%")
