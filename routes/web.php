@@ -11,3 +11,9 @@ Route::post('/', [HomeController::class, 'index']);
 Route::get('/rickmortyapi', [RickMortyController::class, 'store'])->name('rickmortyapi.store');
 Route::get('/jobstatus/{id}', [JobStatusController::class, 'check'])->name('jobstatus.check');
 Route::post('/export', [ExportController::class, 'export']);
+
+// Route::get('/', function () {
+//     return ['Laravel' => app()->version()];
+// });
+
+require __DIR__.'/auth.php';
