@@ -63,7 +63,7 @@
         <th>Location</th>
         <th>Episodes</th>
     </thead>
-    @foreach($characters as $single)
+    @foreach($paginatedCharacters as $single)
         <tr>
             <td>{{ $single->character_id }}</td>
             <td class="p-0 w-90">

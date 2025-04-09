@@ -20,7 +20,7 @@
             ->where('location_name', 'LIKE', "%$location%")
             ->orderBy('character_id', 'asc')
             ->get();
-        $characters = DB::table('characters')
+        $paginatedCharacters = DB::table('characters')
             ->where('name', 'LIKE', "%$name%")
             ->where('status', 'LIKE', "%$options%")
             ->when($episode, function ($query) use ($episode) {
