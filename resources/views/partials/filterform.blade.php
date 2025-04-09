@@ -41,5 +41,5 @@
         </select>
     </div>
 
-    <button type="submit" class="btn btn-primary mt-5">Filter</button>
+    <button type="submit" class="btn btn-success mt-5">Filter</button>
 </form>
