@@ -7,20 +7,6 @@
         background-color: lightblue;
     }
 </style>
-<div>
-    @if ($name)
-        <p>You chosen {{ $name }} name.</p>
-    @endif
-    @if ($episode)
-        <p>You chosen {{ $episode }} episode.</p>
-    @endif
-    @if ($location)
-        <p>You chosen {{ $location }} location.</p>
-    @endif
-    @if ($options)
-        <p>You chosen {{ $options }} status.</p>
-    @endif
-</div>
 
 <div class="w-100 d-flex justify-content-around" id="arrows">
     @if ($offset > 0)
@@ -56,12 +42,28 @@
 </div>
 
 <table class="table table-dark table-striped table-hover table-bordered border-primary">
-    <thead class="table-dark text-center">
+    <thead class="table-light text-center fs-5">
         <th>id</th>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Location</th>
-        <th>Episodes</th>
+        @if ($name)
+            <th>You chosen "{{ $name }}" name</th>
+        @else
+            <th>Name</th>
+        @endif
+        @if ($options)
+            <th>You chosen "{{ $options }}" status</th>
+        @else
+            <th>Status</th>
+        @endif
+        @if ($location)
+            <th>You chosen #{{ $location }} location</th>
+        @else
+            <th>Location</th>
+        @endif
+        @if ($episode)
+            <th>You chosen #{{ $episode }} episode</th>
+        @else
+            <th>Episodes</th>
+        @endif
     </thead>
     @foreach($paginatedCharacters as $single)
         <tr>
