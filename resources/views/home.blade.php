@@ -36,9 +36,15 @@
     @endphp
 
     <div class="container">
-        <h1 class="text-center mb-5">Rick & Morty Characters</h1>
+        <h1 class="text-center my-3">Rick & Morty Characters</h1>
         @if (DB::table('characters')->count() > 0)
-            <div class="row align-items-start">
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-8">
+                    @include('partials.paginationform')
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-4">
                     @include('partials.filterform')
                     @include('partials.excelform')
