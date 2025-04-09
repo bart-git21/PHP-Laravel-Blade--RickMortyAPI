@@ -27,10 +27,10 @@
                 <div class="col-4">
                     @include('partials.filterform')
                     @include('partials.excelform')
-                    @include('partials.loadingform', ['buttonId' => 'updateJob', 'buttonText' => 'Обновить данные'])
                 </div>
                 <div class="col-8">
                     @include('partials.resulttable')
+                    @include('partials.loadingform', ['buttonId' => 'updateJob', 'buttonText' => 'Обновить данные'])
                 </div>
             </div>
         @else
