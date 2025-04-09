@@ -38,7 +38,7 @@
             </button>
         </form>
     @endif
-    @if (($offset + 1) * $step < DB::table('characters')->count())
+    @if (($offset + 1) * $step < count($filteredCharacters))
         <form class="form-content" action="/" method="post">
             @csrf
             <input type="hidden" name="name" value="{{ $name }}">
@@ -67,7 +67,8 @@
         <tr>
             <td>{{ $single->character_id }}</td>
             <td class="p-0 w-90">
-                <a class="text-decoration-none" href="https://rickandmortyapi.com/api/character/{{ $single->character_id }}">
+                <a class="text-decoration-none"
+                    href="https://rickandmortyapi.com/api/character/{{ $single->character_id }}">
                     <div class="card text-center" style="width: 10rem;">
                         <img class="card-img-top" src="{{ $single->img_href }}" alt="">
                         <div class="card-body">
