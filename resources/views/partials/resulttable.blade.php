@@ -23,10 +23,6 @@
 </div>
 
 <div class="w-100 d-flex justify-content-around" id="arrows">
-    @php
-        $left_offset = ($offset - $step) >= 0 ? ($offset - 1) : 0;
-        $right_offset = ($step < count($characters)) ? ($offset + 1) : count($characters);
-    @endphp
     @if ($offset > 0)
         <form class="form-content" action="/" method="post">
             @csrf
@@ -35,11 +31,14 @@
             <input type="hidden" name="location" value="{{ $location }}">
             <input type="hidden" name="options" value="{{ $options }}">
             <input type="hidden" name="options" value="{{ $options }}">
-            <input type="hidden" name="offset" value="{{ $left_offset }}">
-            <button type="submit" class="btn btn-primary mb-3">left</button>
+            <input type="hidden" name="offset" value="{{ ($offset - 1) >= 0 ?: 0 }}">
+            <button type="submit" class="btn mb-3">
+                <img width="40" height="40" src="https://img.icons8.com/flat-round/64/long-arrow-left.png"
+                    alt="long-arrow-left" />
+            </button>
         </form>
     @endif
-    @if ($step < count($characters))
+    @if (($offset + 1) * $step < DB::table('characters')->count())
         <form class="form-content" action="/" method="post">
             @csrf
             <input type="hidden" name="name" value="{{ $name }}">
@@ -47,8 +46,11 @@
             <input type="hidden" name="location" value="{{ $location }}">
             <input type="hidden" name="options" value="{{ $options }}">
             <input type="hidden" name="options" value="{{ $options }}">
-            <input type="hidden" name="offset" value="{{ $right_offset }}">
-            <button type="submit" class="btn btn-primary mb-3">right</button>
+            <input type="hidden" name="offset" value="{{ $offset + 1 }}">
+            <button type="submit" class="btn mb-3">
+                <img width="40" height="40" src="https://img.icons8.com/flat-round/64/long-arrow-right.png"
+                    alt="long-arrow-right" />
+            </button>
         </form>
     @endif
 </div>
