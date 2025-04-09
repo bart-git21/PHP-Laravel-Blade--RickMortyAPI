@@ -6,11 +6,13 @@
 Frontend: JavaScript, CSS, Bootsrap.
 Backend: PHP, Laravel, Blade.
 Database: MySQL.
-Authentication: no.
+Authentication: Laravel/Breeze.
+Testing: Pest.
 Data format: JSON.
 Deployment: GitHub.
 
 ## Features
+- User authentication using Laravel/Breeze.
 - Send http requests to the external Rick and Morty API using Laravel http::Client
 - First user see one button to get all characters, all locations and all episodes.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/intro.jpg)
