@@ -22,6 +22,8 @@ Deployment: GitHub.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/filter.jpg)
 - User can download excel file with filtered data.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/excel.jpg)
+- User can update external rickmorty API data.
+![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/update.jpg)
 
 # Usage
 
