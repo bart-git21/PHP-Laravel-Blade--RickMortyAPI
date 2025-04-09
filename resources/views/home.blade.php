@@ -16,7 +16,7 @@
             ->where('location_name', 'LIKE', "%$location%")
             ->orderBy('character_id', 'asc')
             ->offset($offset * $step)
-            ->limit(10)
+            ->limit($step)
             ->get();
     @endphp
 
@@ -27,14 +27,14 @@
                 <div class="col-4">
                     @include('partials.filterform')
                     @include('partials.excelform')
+                    @include('partials.loadingform', ['buttonId' => 'updateJob', 'buttonText' => 'Обновить данные'])
                 </div>
                 <div class="col-8">
                     @include('partials.resulttable')
                 </div>
             </div>
-            @include('partials.loadingform', ['buttonId'=>'updateJob', 'buttonText'=>'Обновить данные'])
         @else
-            @include('partials.loadingform', ['buttonId'=>'dispatchJob', 'buttonText'=>'Получить данные'])
+            @include('partials.loadingform', ['buttonId' => 'dispatchJob', 'buttonText' => 'Получить данные'])
         @endif
     </div>
 @endsection
