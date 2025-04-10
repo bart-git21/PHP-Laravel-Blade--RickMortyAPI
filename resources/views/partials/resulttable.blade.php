@@ -65,4 +65,8 @@
     .card:hover {
         background-color: lightblue;
     }
+
+    .favorite path {
+        fill: red;
+    }
 </style>
