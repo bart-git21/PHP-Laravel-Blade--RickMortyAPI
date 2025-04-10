@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FavoriteCharacters;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FavoriteCharactersController extends Controller
 {
@@ -17,9 +19,12 @@ class FavoriteCharactersController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        FavoriteCharacters::create([
+            'user_id' => Auth::id(),
+            'character_id' => $request->character_id,
+        ]);
     }
 
     /**
