@@ -14,6 +14,7 @@ Route::get('/rickmortyapi', [RickMortyController::class, 'store'])->name('rickmo
 Route::get('/jobstatus/{id}', [JobStatusController::class, 'check'])->name('jobstatus.check');
 Route::post('/export', [ExportController::class, 'export']);
 Route::get('/protected', [ProtectedController::class, 'index'])->middleware(['auth'])->name('dashboard');
-Route::post('/favorite', [FavoriteCharactersController::class, 'favorite'])->middleware(['auth'])->name('favorite');
+Route::post('/favorite', [FavoriteCharactersController::class, 'create'])->middleware(['auth'])->name('createFavorite');
+Route::delete('/favorite', [FavoriteCharactersController::class, 'destroy'])->middleware(['auth'])->name('deleteFavorite');
 
 require __DIR__.'/auth.php';
