@@ -4,6 +4,7 @@
 
 @section('content')
     @php
+        $user_id = Auth::id();
         $step = 10;
         $allCharacters = DB::table('characters')
             ->select('characters.*', 'locations.location_name')
