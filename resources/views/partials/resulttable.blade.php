@@ -56,6 +56,34 @@
     @endforeach
 </table>
 
+<script>
+    $(document).ready(function () {
+        const updateFavoriteCharacters = (id, svg) => (method) => {
+            $.ajax({
+                url: `/favorite`,
+                method: method,
+                data: {
+                    character_id: id,
+                    _token: "{{ csrf_token() }}"
+                },
+            })
+                .done(response => {
+                    svg.classList.toggle('favorite');
+                })
+                .fail((xhr, status, error) => { console.error(xhr.responseText) })
+        }
+        $("#characters_table").on('click', function (event) {
+            const target = event.target;
+            if (target.nodeName === "path") {
+                const http = updateFavoriteCharacters(target.id, target.parentNode);
+                (target.parentNode.classList.contains('favorite'))
+                    ? http('delete')
+                    : http('post')
+            }
+        })
+    })
+</script>
+
 <style>
     .w-90 {
         width: 90px;
