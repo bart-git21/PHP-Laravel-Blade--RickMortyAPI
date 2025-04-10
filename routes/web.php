@@ -6,6 +6,7 @@ use App\Http\Controllers\RickMortyController;
 use App\Http\Controllers\JobStatusController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ProtectedController;
+use App\Http\Controllers\FavoriteCharactersController;
 
 Route::get('/', [HomeController::class, 'index'])->name('root');
 Route::post('/', [HomeController::class, 'index']);
@@ -13,6 +14,6 @@ Route::get('/rickmortyapi', [RickMortyController::class, 'store'])->name('rickmo
 Route::get('/jobstatus/{id}', [JobStatusController::class, 'check'])->name('jobstatus.check');
 Route::post('/export', [ExportController::class, 'export']);
 Route::get('/protected', [ProtectedController::class, 'index'])->middleware(['auth'])->name('dashboard');
-Route::post('/favorite', [ProtectedController::class, 'favorite'])->middleware(['auth'])->name('favorite');
+Route::post('/favorite', [FavoriteCharactersController::class, 'favorite'])->middleware(['auth'])->name('favorite');
 
 require __DIR__.'/auth.php';
