@@ -62,8 +62,8 @@ class FavoriteCharactersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        FavoriteCharacters::where('user_id', Auth::id())->where('character_id', $request->character_id)->delete();
     }
 }
