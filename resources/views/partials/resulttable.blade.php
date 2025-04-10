@@ -1,13 +1,3 @@
-<style>
-    .w-90 {
-        width: 90px;
-    }
-
-    .card:hover {
-        background-color: lightblue;
-    }
-</style>
-
 <table class="table table-dark table-striped table-hover table-bordered border-primary">
     <thead class="table-light text-center fs-5">
         <th>id</th>
@@ -52,3 +42,13 @@
         </tr>
     @endforeach
 </table>
+
+<style>
+    .w-90 {
+        width: 90px;
+    }
+
+    .card:hover {
+        background-color: lightblue;
+    }
+</style>
