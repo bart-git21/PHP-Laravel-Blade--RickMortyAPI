@@ -49,3 +49,4 @@ http://localhost:8000
 - Bootstrap framework for rapidly building custom designs.
 - Axios library to make HTTP requests from the browser.
 - phpoffice/phpspreadsheet package for export Excel files in Laravel applications.
+- Laravel/Breeze for authentication.
