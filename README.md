@@ -20,6 +20,8 @@ Deployment: GitHub.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/loading.jpg)
 - Display the Rick and Morty characters list.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/result.jpg)
+- User can favourites characters. It displys on 'Favorite page'.
+![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/favorite.jpg)
 - User can filter the characters.
 ![screen](https://github.com/bart-git21/PHP-Laravel-Blade--RickMortyAPI/blob/main/public/images/filter.jpg)
 - User can download excel file with filtered data.
