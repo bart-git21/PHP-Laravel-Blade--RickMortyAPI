@@ -13,7 +13,13 @@ class FavoriteCharactersController extends Controller
      */
     public function index()
     {
-        //
+        return view('favorite', [
+            'offset' => 0,
+            'name' => "",
+            'episode' => "",
+            'options' => "",
+            'location' => ""
+        ]);
     }
 
     /**
