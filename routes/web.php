@@ -13,7 +13,7 @@ Route::post('/', [HomeController::class, 'index']);
 Route::get('/rickmortyapi', [RickMortyController::class, 'store'])->name('rickmortyapi.store');
 Route::get('/jobstatus/{id}', [JobStatusController::class, 'check'])->name('jobstatus.check');
 Route::post('/export', [ExportController::class, 'export']);
-Route::get('/protected', [ProtectedController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/favorite', [FavoriteCharactersController::class, 'index'])->middleware(['auth'])->name('readFavorite');
 Route::post('/favorite', [FavoriteCharactersController::class, 'create'])->middleware(['auth'])->name('createFavorite');
 Route::delete('/favorite', [FavoriteCharactersController::class, 'destroy'])->middleware(['auth'])->name('deleteFavorite');
 
