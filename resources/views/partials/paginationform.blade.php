@@ -14,7 +14,7 @@
             </button>
         </form>
     @endif
-    @if (($offset + 1) * $step < count($filteredCharacters))
+    @if (($offset + 1) * $step < $filteredCharactersCount)
         <form class="form-content" action="/" method="post">
             @csrf
             <input type="hidden" name="name" value="{{ $name }}">
