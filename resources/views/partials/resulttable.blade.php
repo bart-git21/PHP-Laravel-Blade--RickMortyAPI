@@ -51,7 +51,7 @@
             </td>
             <td>{{ $single->status }}</td>
             <td>{{ $single->location_name }}</td>
-            <td>{{ $single->episodes_id }}</td>
+            <td>{{ implode(', ', $single->episodes_id) }}</td>
         </tr>
     @endforeach
 </table>
