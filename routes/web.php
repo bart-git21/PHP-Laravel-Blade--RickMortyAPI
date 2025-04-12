@@ -5,7 +5,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RickMortyController;
 use App\Http\Controllers\JobStatusController;
 use App\Http\Controllers\ExportController;
-use App\Http\Controllers\ProtectedController;
 use App\Http\Controllers\FavoriteCharactersController;
 
 Route::get('/', [HomeController::class, 'index'])->name('root');
