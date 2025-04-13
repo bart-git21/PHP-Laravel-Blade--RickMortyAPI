@@ -28,10 +28,7 @@ class insertEpisodesJob implements ShouldQueue
      * Execute the job.
      */
     public function handle(): void
-    {
-        // clear table
-        DB::table('episodes')->delete();
-        
+    {        
         //get episodes from external rickmorty API and insert into database
         $this->getEpisodes($this->url);
     }

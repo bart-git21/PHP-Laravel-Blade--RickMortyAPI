@@ -6,13 +6,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
+use App\Models\Characters;
+use App\Models\Episodes;
 use App\Models\Locations;
+use App\Models\FavoriteCharacters;
 
 class InsertLocationsJob implements ShouldQueue
 {
     use Queueable;
 
-    public $tries = 3;
+    public $tries = 1;
     public $timeout = 120;
     protected $url;
 
@@ -29,9 +32,11 @@ class InsertLocationsJob implements ShouldQueue
      */
     public function handle(): void
     {
-        // clear table
-        DB::table('characters')->delete();
-        DB::table('locations')->delete();
+        // clear tables
+        FavoriteCharacters::clearFavoriteCharactersTable();
+        Characters::clearCharactersTable();
+        Locations::clearLocationsTable();
+        Episodes::clearEpisodesTable();
 
         // create empty 'unknown' location
         $locations = new Locations();

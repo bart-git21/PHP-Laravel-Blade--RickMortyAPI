@@ -31,9 +31,6 @@ class InsertCharactersJob implements ShouldQueue
      */
     public function handle(): void
     {
-        // clear table
-        DB::table('characters')->delete();
-
         // insert job status into jobStatus table
         JobStatus::updateOrCreate(
             ['job_id' => $this->job_id],
