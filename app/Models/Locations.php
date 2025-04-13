@@ -20,4 +20,8 @@ class Locations extends Model
         DB::table('locations')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
+    public function selectLocationById($location_id)
+    {
+        return self::where('location_id', $location_id)->first();
+    }
 }
