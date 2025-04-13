@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Locations extends Model
 {
@@ -13,4 +14,10 @@ class Locations extends Model
     protected $casts = [
         'residents' => 'array',
     ];
+    public static function clearLocationsTable()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('locations')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    }
 }

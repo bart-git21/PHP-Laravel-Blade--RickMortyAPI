@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class episodes extends Model
 {
@@ -13,4 +14,7 @@ class episodes extends Model
     protected $casts = [
         'characters' => 'array',
     ];
+    public static function clearEpisodesTable() {
+        DB::table('episodes')->truncate();
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Characters extends Model
 {
@@ -13,6 +14,12 @@ class Characters extends Model
     protected $casts = [
         'episodes_id' => 'array'
     ];
+    public static function clearCharactersTable()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('characters')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    }
 
     public function getAllCharacters()
     {
