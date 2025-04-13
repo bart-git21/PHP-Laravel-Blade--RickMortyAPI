@@ -24,4 +24,14 @@ class Locations extends Model
     {
         return self::where('location_id', $location_id)->first();
     }
+    public function insertLocation($location_id, $location_name, $residents, $location_url)
+    {
+        $data = [
+            'location_id' => $location_id,
+            'location_name' => $location_name,
+            'residents' => $residents,
+            'location_url' => $location_url,
+        ];
+        return self::create($data);
+    }
 }
