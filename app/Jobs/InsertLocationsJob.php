@@ -36,13 +36,12 @@ class InsertLocationsJob implements ShouldQueue
         Locations::clearLocationsTable();
         Episodes::clearEpisodesTable();
 
-        // create empty 'unknown' location
+        // insert the data from external rickmorty API into database
         $locations = new Locations();
         if ($locations->selectLocationById(0) === null) {
-            $locations->insertLocation(0, 'unknown', '[]', '');
+            $locations->insertLocation(0, 'unknown', '[]', ''); // create empty 'unknown' location
         }
-
-        //get locations from external rickmorty API and insert into database
-        $locations->insertLocationsFromUrl($this->url);
+        $locations->insertLocationsFromUrl("$this->url/location/");
+        (new Episodes())->insertEpisodesFromUrl("$this->url/episode/");
     }
 }
