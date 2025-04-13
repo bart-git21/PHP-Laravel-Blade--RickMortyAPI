@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class Characters extends Model
 {
@@ -19,6 +20,40 @@ class Characters extends Model
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('characters')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    }
+    protected function insertCharacter($character_id, $name, $status, $species, $gender, $location_id, $episodes_id, $img_href)
+    {
+        $data = [
+            'character_id' => $character_id,
+            'name' => $name,
+            'status' => $status,
+            'species' => $species,
+            'gender' => $gender,
+            'location_id' => $location_id,
+            'episodes_id' => $episodes_id,
+            'img_href' => $img_href,
+        ];
+        return self::create($data);
+    }
+    public function insertCharactersFromUrl($url)
+    {
+        $response = Http::withOptions(['verify' => false])->get($url);
+        $json = $response->json();
+        $results = $json['results'];
+        foreach ($results as $key => $result) {
+            $result['location'] = intval(str_replace('https://rickandmortyapi.com/api/location/', '', $result['location']['url']));
+            $result['episode'] = str_replace('https://rickandmortyapi.com/api/episode/', '', $result['episode']);
+            foreach ($result['episode'] as $key => $episode) {
+                $result['episode'][$key] = intval($episode);
+            }
+            $this->insertCharacter($result['id'], $result['name'], $result['status'], $result['species'], $result['gender'], $result['location'], $result['episode'], $result['image']);
+        }
+
+        // loop during get all data from external API
+        $nextPage = $json['info']['next'];
+        if ($nextPage) {
+            $this->insertCharactersFromUrl($nextPage);
+        }
     }
 
     public function getAllCharacters()
