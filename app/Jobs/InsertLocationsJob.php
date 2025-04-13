@@ -40,11 +40,9 @@ class InsertLocationsJob implements ShouldQueue
 
         // create empty 'unknown' location
         $locations = new Locations();
-        $locations->location_id = 0;
-        $locations->location_name = 'unknown';
-        $locations->residents = '[]';
-        $locations->location_url = '';
-        $locations->save();
+        if ($locations->selectLocationById(0) === null) {
+            $locations->insertLocation(0, 'unknown', '[]', '');
+        }
 
         //get locations from external rickmorty API and insert into database
         $this->getLocations($this->url);
