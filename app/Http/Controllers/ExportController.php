@@ -20,15 +20,20 @@ class ExportController extends Controller
 
         // Fetch data
         $data = $request->json()->all();
-        $request_table = $data['table'] ?? null;
+        $requestName = $data['name'] || '';
+        $requestStatus = $data['options'] || '';
+        $requestEpisode = $data['episode'] || '';
+        $requestLocation = $data['location'] || '';
 
-        // fill the excel sheet
+        $characters = (new Characters)->getFilteredCharactes($requestName, $requestStatus, $requestEpisode, $requestLocation);
+
+        // // fill the excel sheet
         $row = 2; // Start from the second row
-        foreach ($request_table as $request_row) {
-            $sheet->setCellValue('A' . $row, $request_row["character_id"]);
-            $sheet->setCellValue('B' . $row, $request_row["name"]);
-            $sheet->setCellValue('C' . $row, $request_row["status"]);
-            $sheet->setCellValue('D' . $row, $request_row["location_name"]);
+        foreach ($characters as $single) {
+            $sheet->setCellValue('A' . $row, $single["character_id"]);
+            $sheet->setCellValue('B' . $row, $single["name"]);
+            $sheet->setCellValue('C' . $row, $single["status"]);
+            $sheet->setCellValue('D' . $row, $single["location_name"]);
             $row++;
         }
 
