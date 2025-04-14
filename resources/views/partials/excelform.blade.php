@@ -7,33 +7,45 @@
     </button>
 
     <script>
-        function createExcelDownloadableLink(charactersList, excelLinkTitle) {
-            $.ajax({
-                url: '/export',
-                method: "POST",
-                data: JSON.stringify({ table: charactersList }),
-                contentType: 'application/json',
-                headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                },
-            })
-                .done(response => {
-                    const link = document.createElement('a');
-                    link.href = 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' + response.fileData;
-                    link.download = 'filtered_characters.xlsx';
-                    link.textContent = excelLinkTitle;
-                    $("#excelForm").append(link);
-                })
-                .fail()
-        }
         $(document).ready(function () {
+            const params = {
+                name: @json($name ?? ''),
+                options: @json($options ?? ''),
+                episode: @json($episode ?? ''),
+                location: @json($location ?? ''),
+            }
+
+            function createExcelDownloadableLink(params, excelLinkTitle) {
+                $.ajax({
+                    url: '/export',
+                    method: "POST",
+                    data: JSON.stringify(params),
+                    contentType: 'application/json',
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                })
+                    .done(response => {
+                        const link = document.createElement('a');
+                        link.href = 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' + response.fileData;
+                        link.download = 'filtered_characters.xlsx';
+                        link.textContent = excelLinkTitle;
+                        $("#excelForm").append(link);
+                    })
+                    .fail()
+            }
             $('#exportAllToExcelBtn').on('click', function (event) {
                 event.preventDefault();
-                createExcelDownloadableLink(@json($allCharacters), 'download all');
+                createExcelDownloadableLink({
+                    name: '',
+                    options: '',
+                    episode: '',
+                    location: '',
+                }, 'download all');
             })
             $('#exportFilteredToExcelBtn').on('click', function (event) {
                 event.preventDefault();
-                createExcelDownloadableLink(@json($filteredCharacters), 'download filtered characters')
+                createExcelDownloadableLink(params, 'download filtered characters')
             })
         })
     </script>
