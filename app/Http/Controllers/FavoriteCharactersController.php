@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Characters;
 use App\Models\FavoriteCharacters;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,14 +12,21 @@ class FavoriteCharactersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $offset = $request->offset ?: 0;
+        $step = 10;
+        $characters = new Characters();
+        $paginatedCharacters = $characters->getFavoriteCharacters(Auth::id(), $offset, $step);
         return view('favorite', [
-            'offset' => 0,
+            'paginatedCharacters' => $paginatedCharacters,
+            'offset' => $offset,
+            'step' => $step,
             'name' => "",
             'episode' => "",
             'options' => "",
-            'location' => ""
+            'location' => "",
+            'user_id' => Auth::id(),
         ]);
     }
 
