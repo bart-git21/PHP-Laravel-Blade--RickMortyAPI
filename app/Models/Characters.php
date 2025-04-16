@@ -98,7 +98,9 @@ class Characters extends Model
     public function getFavoriteCharacters($user_id, $offset, $step)
     {
         return Characters::
-            join('favorite_characters', 'favorite_characters.character_id', '=', 'characters.character_id')
+            select('characters.*', 'locations.location_name')
+            ->leftJoin('locations', 'characters.location_id', '=', 'locations.location_id')
+            ->join('favorite_characters', 'favorite_characters.character_id', '=', 'characters.character_id')
             ->where('favorite_characters.user_id', '=', $user_id)
             ->orderBy('characters.character_id', 'asc')
             ->offset($offset * $step)
