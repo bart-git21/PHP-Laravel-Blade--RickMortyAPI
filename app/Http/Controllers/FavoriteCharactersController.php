@@ -14,10 +14,15 @@ class FavoriteCharactersController extends Controller
      */
     public function index(Request $request)
     {
+        $user_id = Auth::id();
         $offset = $request->offset ?: 0;
         $step = 10;
         $characters = new Characters();
-        $paginatedCharacters = $characters->getFavoriteCharacters(Auth::id(), $offset, $step);
+        $paginatedCharacters = $characters->getFavoriteCharacters($user_id, $offset, $step);
+        foreach ($paginatedCharacters as $character) {
+            $character->favorite = FavoriteCharacters::where('character_id', $character->character_id)->where('user_id', $user_id)->first() ? 'favorite' : '';
+        }
+
         return view('favorite', [
             'paginatedCharacters' => $paginatedCharacters,
             'offset' => $offset,
@@ -26,7 +31,6 @@ class FavoriteCharactersController extends Controller
             'episode' => "",
             'options' => "",
             'location' => "",
-            'user_id' => Auth::id(),
         ]);
     }
 
