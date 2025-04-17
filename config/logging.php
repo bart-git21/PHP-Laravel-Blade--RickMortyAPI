@@ -51,6 +51,12 @@ return [
     */
 
     'channels' => [
+        'sql_error_channel' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/sql.log'),
+            'level' => 'error',
+            'replace_placeholders' => true,
+        ],
 
         'stack' => [
             'driver' => 'stack',
