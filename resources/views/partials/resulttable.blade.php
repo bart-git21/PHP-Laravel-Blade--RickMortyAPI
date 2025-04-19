@@ -57,9 +57,21 @@
 <script>
     $(document).ready(function () {
         const updateFavoriteCharacters = (id, svg) => (method) => {
+            let url = '/';
+            switch (method) {
+                case 'post':
+                    url = '/favorite';
+                    break;
+                case 'delete':
+                    url = `/favorite/${id}`;
+                    break;
+                default:
+                    url = '/favorite';
+                    breal;
+            }
             $.ajax({
-                url: `/favorite`,
-                method: method,
+                url,
+                method,
                 data: {
                     character_id: id,
                     _token: "{{ csrf_token() }}"
@@ -70,6 +82,7 @@
                 })
                 .fail((xhr, status, error) => { console.error(xhr.responseText) })
         }
+        
         $("#characters_table").on('click', function (event) {
             const target = event.target;
             if (target.nodeName === "path") {
