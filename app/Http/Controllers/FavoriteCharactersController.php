@@ -39,10 +39,7 @@ class FavoriteCharactersController extends Controller
      */
     public function create(Request $request)
     {
-        FavoriteCharacters::create([
-            'user_id' => Auth::id(),
-            'character_id' => $request->character_id,
-        ]);
+        //
     }
 
     /**
@@ -50,7 +47,10 @@ class FavoriteCharactersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        FavoriteCharacters::create([
+            'user_id' => Auth::id(),
+            'character_id' => $request->character_id,
+        ]);
     }
 
     /**
@@ -80,8 +80,8 @@ class FavoriteCharactersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(string $id)
     {
-        FavoriteCharacters::where('user_id', Auth::id())->where('character_id', $request->character_id)->delete();
+        FavoriteCharacters::where('user_id', Auth::id())->where('character_id', $id)->delete();
     }
 }
